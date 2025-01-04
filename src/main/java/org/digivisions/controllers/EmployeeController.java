@@ -21,7 +21,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@PostMapping
-	@RateLimiter(name = "apiLimiter", fallbackMethod = "rateLimitFallback")
+	@RateLimiter(name = "create-api-limiter", fallbackMethod = "rateLimitFallback")
 	public ResponseEntity<BaseModel> create(@Valid @RequestBody EmployeeDTO employeeDTO){
 		return handle(employeeService.create(employeeDTO));
 	}

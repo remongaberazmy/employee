@@ -1,6 +1,7 @@
 package org.digivisions.controllers;
 
 import org.digivisions.exceptions.DatabaseException;
+import org.digivisions.exceptions.EmployeeAlreadyExistException;
 import org.digivisions.exceptions.EmployeeNotFoundException;
 import org.digivisions.exceptions.InvalidInputException;
 import org.digivisions.models.ErrorModel;
@@ -17,6 +18,13 @@ public class ExceptionsController {
 	public ResponseEntity<ErrorModel> handleEmployeeNotFoundException(EmployeeNotFoundException ex){
 		ErrorModel errorModel = new ErrorModel();
 		errorModel.addErrorMessage(EmployeeNotFoundException.ERROR_MSG);
+		return new ResponseEntity<>(errorModel, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(EmployeeAlreadyExistException.class)
+	public ResponseEntity<ErrorModel> handleEmployeeAlreadyExistException(EmployeeAlreadyExistException ex){
+		ErrorModel errorModel = new ErrorModel();
+		errorModel.addErrorMessage(EmployeeAlreadyExistException.ERROR_MSG);
 		return new ResponseEntity<>(errorModel, HttpStatus.BAD_REQUEST);
 	}
 
@@ -42,6 +50,8 @@ public class ExceptionsController {
 		);
 		return new ResponseEntity<>(errorModel, HttpStatus.BAD_REQUEST);
 	}
+
+
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorModel> handleException(Exception ex){

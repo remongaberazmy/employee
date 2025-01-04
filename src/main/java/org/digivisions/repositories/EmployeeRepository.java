@@ -14,4 +14,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long>,
 	Optional<EmployeeEntity> findByIdAndDeletedFalse(Long id);
 	@Query("SELECT e FROM EmployeeEntity e WHERE e.deleted = false")
 	List<EmployeeEntity> findAllAndDeletedFalse();
+
+	boolean existsByEmailAndDeletedFalse(String email);
 }

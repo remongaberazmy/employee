@@ -2,6 +2,7 @@ package org.digivisions.Services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.digivisions.entities.EmployeeEntity;
+import org.digivisions.exceptions.EmployeeAlreadyExistException;
 import org.digivisions.exceptions.EmployeeNotFoundException;
 import org.digivisions.exceptions.InvalidInputException;
 import org.digivisions.models.BaseModel;
@@ -12,6 +13,7 @@ import org.digivisions.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +41,8 @@ public class EmployeeService {
 	public BaseModel create(EmployeeDTO employeeDTO){
 		BaseModel baseModel = new BaseModel();
 		log.info("Trying to create Employee: {}", employeeDTO);
+		if(employeeRepository.existsByEmailAndDeletedFalse(employeeDTO.getEmail()))
+			throw new EmployeeAlreadyExistException();
 		employeeRepository.save(map(employeeDTO));
 		baseModel.setReplyMessage(Constants.CREATED);
 		baseModel.setReplyCode(Constants.OK);
@@ -66,6 +70,7 @@ public class EmployeeService {
 		return baseModel;
 	}
 
+	//TODO: To be replaced with mapper like: DozerMapper or MapStructs
 	private EmployeeDTO map(EmployeeEntity employeeEntity){
 		EmployeeDTO employeeDTO = new EmployeeDTO();
 		employeeDTO.setId(employeeEntity.getId());
@@ -73,7 +78,7 @@ public class EmployeeService {
 		employeeDTO.setLastName(employeeEntity.getLastName());
 		employeeDTO.setEmail(employeeEntity.getEmail());
 		employeeDTO.setDepartment(employeeEntity.getDepartment());
-		employeeDTO.setSalary(employeeEntity.getSalary());
+		employeeDTO.setSalary(employeeEntity.getSalary().setScale(2, RoundingMode.HALF_UP));
 		return employeeDTO;
 	}
 
