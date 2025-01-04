@@ -23,7 +23,7 @@ public class EmployeeDTO extends BaseModel {
 
 	@NotBlank(message = "EMAIL_NAME_MUST_NOT_BE_EMPTY")
 	@Email(message = "INVALID_EMAIL")
-	@EmailExistence(message = "EMAIL_NOT_EXIST")
+//	@EmailExistence(message = "EMAIL_NOT_EXIST")
 	private String email;
 
 	@NotBlank(message = "DEPARTMENT_NAME_MUST_NOT_BE_EMPTY")

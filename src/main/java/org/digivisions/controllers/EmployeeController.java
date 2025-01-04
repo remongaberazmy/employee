@@ -27,13 +27,13 @@ public class EmployeeController {
 	}
 
 	@PutMapping
-	public void update(@Valid @RequestBody EmployeeDTO employeeDTO){
-		employeeService.update(employeeDTO);
+	public ResponseEntity<BaseModel> update(@Valid @RequestBody EmployeeDTO employeeDTO){
+		return handle(employeeService.update(employeeDTO));
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@NotNull @PathVariable("id") Long id){
-		employeeService.delete(id);
+	public ResponseEntity<BaseModel> delete(@NotNull @PathVariable("id") Long id){
+		return handle(employeeService.delete(id));
 	}
 
 	@GetMapping("/{id}")

@@ -45,17 +45,25 @@ public class EmployeeService {
 		return baseModel;
 	}
 
-	public void update(EmployeeDTO employeeDTO){
+	public BaseModel update(EmployeeDTO employeeDTO){
+		BaseModel baseModel = new BaseModel();
 		Long employeeId = Optional.ofNullable(employeeDTO.getId()).orElseThrow(InvalidInputException::new);
 		EmployeeEntity employeeEntity = employeeRepository.findByIdAndDeletedFalse(employeeId).orElseThrow(EmployeeNotFoundException::new);
 		employeeRepository.save(map(employeeDTO, employeeEntity));
+		baseModel.setReplyMessage(Constants.UPDATED);
+		baseModel.setReplyCode(Constants.OK);
+		return baseModel;
 	}
 
-	public void delete(Long employeeId){
+	public BaseModel delete(Long employeeId){
+		BaseModel baseModel = new BaseModel();
 		log.info("Trying to delete Employee with id:{}", employeeId);
 		EmployeeEntity employeeEntity = employeeRepository.findByIdAndDeletedFalse(employeeId).orElseThrow(EmployeeNotFoundException::new);
 		employeeEntity.setDeleted(true);
 		employeeRepository.save(employeeEntity);
+		baseModel.setReplyMessage(Constants.DELETED);
+		baseModel.setReplyCode(Constants.OK);
+		return baseModel;
 	}
 
 	private EmployeeDTO map(EmployeeEntity employeeEntity){
