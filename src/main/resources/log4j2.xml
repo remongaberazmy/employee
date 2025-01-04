@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} --Employee-- [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile  name="fileAppender" fileName="./EmployeeLogs/SLF4J/Employee.log" filePattern="./EmployeeLogs/Employee/Employee-%i.log" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} --Employee-- [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="150 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="40"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.digivisions" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="fileAppender"/>
+        </Logger>
+
+        <Logger name="org.flywaydb" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="fileAppender"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="fileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
