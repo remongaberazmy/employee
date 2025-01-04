@@ -15,21 +15,21 @@ import java.math.BigDecimal;
 public class EmployeeDTO extends BaseModel {
 	private Long id;
 
-	@NotBlank(message = "First name must not be empty")
+	@NotBlank(message = "FIRST_NAME_MUST_NOT_BE_EMPTY")
 	private String firstName;
 
-	@NotBlank(message = "Second name must not be empty")
+	@NotBlank(message = "SECOND_NAME_MUST_NOT_BE_EMPTY")
 	private String lastName;
 
-	@NotBlank(message = "Email must not be empty")
-	@Email(message = "Invalid email")
-	@EmailExistence(message = "Email not found")
+	@NotBlank(message = "EMAIL_NAME_MUST_NOT_BE_EMPTY")
+	@Email(message = "INVALID_EMAIL")
+	@EmailExistence(message = "EMAIL_NOT_EXIST")
 	private String email;
 
-	@NotBlank(message = "Department must not be empty")
+	@NotBlank(message = "DEPARTMENT_NAME_MUST_NOT_BE_EMPTY")
 	private String department;
 
-	@NotNull(message = "Salary must not be empty")
-	@Min(value = 0, message = "Salary must be greater than zero")
+	@NotNull(message = "SALARY_NAME_MUST_NOT_BE_EMPTY")
+	@Min(value = 0, message = "SALARY_MUST_BE_GREATER_THAN_ZERO")
 	private BigDecimal salary;
 }

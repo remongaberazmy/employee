@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Service("emailValidationService")
 @Profile("mailgun")
 public class MailgunEmailValidationService implements EmailValidationService{
 

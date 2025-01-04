@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.digivisions.entities.EmployeeEntity;
 import org.digivisions.exceptions.EmployeeNotFoundException;
 import org.digivisions.exceptions.InvalidInputException;
+import org.digivisions.models.BaseModel;
 import org.digivisions.models.EmployeeDTO;
 import org.digivisions.models.EmployeeList;
 import org.digivisions.repositories.EmployeeRepository;
+import org.digivisions.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +36,13 @@ public class EmployeeService {
 		return employeeList;
 	}
 
-	public void create(EmployeeDTO employeeDTO){
+	public BaseModel create(EmployeeDTO employeeDTO){
+		BaseModel baseModel = new BaseModel();
 		log.info("Trying to create Employee: {}", employeeDTO);
 		employeeRepository.save(map(employeeDTO));
+		baseModel.setReplyMessage(Constants.CREATED);
+		baseModel.setReplyCode(Constants.OK);
+		return baseModel;
 	}
 
 	public void update(EmployeeDTO employeeDTO){

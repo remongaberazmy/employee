@@ -7,5 +7,6 @@ import java.io.Serializable;
 
 @Setter@Getter
 public class BaseModel implements Serializable {
-
+	private String replyMessage;
+	private Integer replyCode;
 }

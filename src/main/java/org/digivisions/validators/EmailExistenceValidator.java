@@ -3,6 +3,7 @@ package org.digivisions.validators;
 import org.digivisions.Annotations.EmailExistence;
 import org.digivisions.Services.EmailValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -10,6 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 public class EmailExistenceValidator implements ConstraintValidator<EmailExistence, String> {
 
 	@Autowired
+	@Qualifier("emailValidationService")
 	private EmailValidationService emailValidationService;
 
 	@Override
